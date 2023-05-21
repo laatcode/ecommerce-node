@@ -1,7 +1,10 @@
 const router = require('express').Router()
+const ProductsService = require('../services/product.service')
+
+const service = new ProductsService()
 
 router.get('/', (req, res) => {
-	res.send('products')
+	res.json(service.find())
 })
 
 module.exports = router
