@@ -28,6 +28,7 @@ class ProductsService {
 		if(productFound) {
 			return productFound
 		}
+
 		throw new CustomError("CustomError", "Not Found", 404)
 	}
 
