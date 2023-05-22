@@ -1,4 +1,5 @@
 const {faker} = require('@faker-js/faker')
+const CustomError = require('../CustomError')
 
 class ProductsService {
 	constructor() {
@@ -22,16 +23,42 @@ class ProductsService {
 		return this.products
 	}
 
-	findOne() {
+	findOne(id) {
+		const productFound = this.products.find(product => product.id === id)
+		if(productFound) {
+			return productFound
+		}
+		throw new CustomError("CustomError", "Not Found", 404)
 	}
 
-	create() {
+	create(data) {
+		const newProduct = {
+			...data,
+			id: faker.string.uuid()
+		}
+
+		this.products.push(newProduct)
+
+		return newProduct
 	}
 
-	update() {
+	update(id, data) {
+		let productFound = this.findOne(id)
+		productFound = {
+			...productFound,
+			...data,
+			id
+		}
+
+		this.products = this.products.filter(product => product.id !== id)
+		this.products.push(productFound)
+
+		return productFound
 	}
 
-	delete() {
+	delete(id) {
+		this.findOne(id)
+		this.products = this.products.filter(product => product.id !== id)
 	}
 
 }
