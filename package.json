@@ -4,7 +4,7 @@
   "description": "ecommerce-node",
   "main": "server.js",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node api/index.js"
   },
   "author": "Luis Angel Avila Torres",
   "license": "ISC",
